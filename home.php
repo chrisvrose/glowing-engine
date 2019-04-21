@@ -1,27 +1,42 @@
 <?php
   include("config.php");
   session_start();
-   
+  //session_destroy();
   if($_SERVER["REQUEST_METHOD"] == "POST") {
-    // username and password sent from form 
-     
-    $myusername = mysqli_real_escape_string($db,$_POST['username']);
-    $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
-     
-    $sql = "SELECT * FROM admin WHERE username = '$myusername' and passcode = '$mypassword'";
-    $result = mysqli_query($db,$sql);
-  
-      
-    $count = mysqli_num_rows($result);
-      
-    // If result matched $myusername and $mypassword, table row must be 1 row
-		
-    if($count >= 1) { 
-      $error = "DONE";
-      $_SESSION['login_user'] = $myusername;
-      //header("location: welcome.php");
-    }else {
-      $error = "Your Login Name or Password is invalid";
+    if(isset($_POST['typef']))
+    {
+      echo("TRY"."ING".$_POST['typef']);
+      if($_POST['typef']=='Login'){
+        // username and password sent from form 
+        
+        $myusername = mysqli_real_escape_string($db,$_POST['username']);
+        $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
+        
+        $sql = "SELECT * FROM admin WHERE username = '$myusername' and passcode = '$mypassword'";
+        $result = mysqli_query($db,$sql);
+        
+        
+        $count = mysqli_num_rows($result);
+        
+        // If result matched $myusername and $mypassword, table row must be 1 row
+        if($count >= 1) { 
+          //$error = "DONE";
+          $_SESSION['login_user'] = $myusername;
+          //header("location: welcome.php");
+        }
+      }
+      else if($_POST['typef']=='Logout'){
+        
+        echo('DESTROY');
+        session_unset();
+        session_destroy();
+      }
+      else{
+        echo "NOTHING HAPPEN: ".$_POST['typef'];
+      }
+    }
+    else{
+      $error="Not set";
     }
   }
 ?>
@@ -72,16 +87,25 @@
 </li>
  </ul>
  <ul class = "top">
-    <li><a href = "#">Login</a>
+    <li><a href = "">Login</a>
       <?php 
       if( isset($_SESSION['login_user']) )
-        echo('<ul><li>LOGGED</li></ul>');
+        echo('<ul><li>LOGGED: '.$_SESSION['login_user'].'</li>
+        <ul>
+          <form action="" method="post">
+            <li><input type="hidden" name="typef"value="Logout">Logout</input></li>
+            <li><button type="submit">Logout</button></li>
+          </ul>
+          </form>
+        </ul>
+        ');
         else
         echo('
-    <form action = "#" method="post">
+    <form action="" method="post">
      <ul>
-      <li id = "name">Username<input name = "username"/></li>
-      <li id = "pass">Password <input name = "password"/></li>
+      <li id = "name">Username<input name="username"/></li>
+      <li id = "pass">Password <input name="password" type="password"/></li>
+      <li><input type="hidden" name="typef" value="Login"></input></li>
       <li><button type = "submit">Log In</button></li>
      </ul>
     </form>');
