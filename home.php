@@ -1,10 +1,6 @@
 <?php
-  include("config.php");
-  session_start();
-   
-  if($_SERVER["REQUEST_METHOD"] == "POST") {
-    // username and password sent from form 
-     
+include("config.php");
+function doLogin(){
     $myusername = mysqli_real_escape_string($db,$_POST['username']);
     $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
      
@@ -23,7 +19,26 @@
     }else {
       $error = "Your Login Name or Password is invalid";
     }
+    return $error;
+}
+function doLogout(){
+  return session_destroy();
+}
+session_start();
+   
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+// username and password sent from form 
+  if(isset($_POST['type']))
+  {
+    if($_POST['type']=='login')
+      $error = doLogin();
+    else
+      $error = doLogout();
   }
+
+}
 ?>
 <html>
 <head>
@@ -82,6 +97,7 @@
      <ul>
       <li id = "name">Username<input name = "username"/></li>
       <li id = "pass">Password <input name = "password"/></li>
+      <input type="hidden" name="type">Login</input>
       <li><button type = "submit">Log In</button></li>
      </ul>
     </form>');
