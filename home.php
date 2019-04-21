@@ -40,7 +40,7 @@
         session_unset();
         session_destroy();
         session_start();
-        if(!($result = mysqli_query($db,$sql)) ){
+        if(!($result == mysqli_query($db,$sql)) ){
           $_SESSION['LRE']="Registration failed";
         }
           
