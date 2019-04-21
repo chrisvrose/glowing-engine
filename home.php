@@ -95,15 +95,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         echo('
     <form action = "#" method="post">
      <ul>
-      <li id = "name">Username<input name = "username"/></li>
-      <li id = "pass">Password <input name = "password"/></li>
+      <li id = "name">Username<input name = "username" type = "text"/></li>
+      <li id = "pass">Password <input name = "password", type = "password"/></li>
       <input type="hidden" name="type">Login</input>
       <li><button type = "submit">Log In</button></li>
      </ul>
     </form>');
     ?>
 </li><li>
-    <a href = "register.html">Register</a></li><li>
+    <a href = "register.html">Register</a>
+    <form action = "post">
+      <ul>
+       <li id = "name">Username<input name = "username" type="text"/></li>
+       <li id = "pass">Password <input name = "password" type="password"/></li>
+       <li id = "pho">Phone number<input name = "username" type="text"/></li>
+       <li id = "email">Email<input name = "password" type="email"/></li>
+       <li><button type = "submit">Log In</button></li>
+      </ul>
+    </form>
+</li><li>
     <a href = "enquiry.html">Enquiry</a>
   </li>
  </ul>
