@@ -20,7 +20,7 @@
          
          $_SESSION['login_user'] = $myusername;
          
-         header("location: welcome.php");
+         //header("location: welcome.php");
       }else {
          $error = "Your Login Name or Password is invalid";
       }
