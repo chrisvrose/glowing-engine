@@ -1,30 +1,29 @@
 <?php
-   include("config.php");
-   session_start();
+  include("config.php");
+  session_start();
    
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form 
-      
-      $myusername = mysqli_real_escape_string($db,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
-      
-      $sql = "SELECT * FROM admin WHERE username = '$myusername' and passcode = '$mypassword'";
-      $result = mysqli_query($db,$sql);
+  if($_SERVER["REQUEST_METHOD"] == "POST") {
+    // username and password sent from form 
+     
+    $myusername = mysqli_real_escape_string($db,$_POST['username']);
+    $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
+     
+    $sql = "SELECT * FROM admin WHERE username = '$myusername' and passcode = '$mypassword'";
+    $result = mysqli_query($db,$sql);
   
       
-      $count = mysqli_num_rows($result);
+    $count = mysqli_num_rows($result);
       
-      // If result matched $myusername and $mypassword, table row must be 1 row
+    // If result matched $myusername and $mypassword, table row must be 1 row
 		
-      if($count >= 1) {
-         
-         $_SESSION['login_user'] = $myusername;
-         
-         //header("location: welcome.php");
-      }else {
-         $error = "Your Login Name or Password is invalid";
-      }
-   }
+    if($count >= 1) { 
+      $error = "DONE";
+      $_SESSION['login_user'] = $myusername;
+      //header("location: welcome.php");
+    }else {
+      $error = "Your Login Name or Password is invalid";
+    }
+  }
 ?>
 <html>
 <head>
@@ -32,7 +31,7 @@
 </head>
 <link rel = "stylesheet" href = "home.css">
 <body>
-<img src="travel1.png">
+<img src="Images/travel1.png">
 <div id="nav">
  <div id="nav_wrapper">
  <ul>
@@ -74,13 +73,19 @@
  </ul>
  <ul class = "top">
     <li><a href = "#">Login</a>
-    <form action = "get">
+      <?php 
+      if( isset($_SESSION['login_user']) )
+        echo('<ul><li>LOGGED</li></ul>');
+        else
+        echo('
+    <form action = "#" method="post">
      <ul>
-      <li id = "name">Username<input name = "Your Name"/></li>
-      <li id = "pass">Password <input name = "Password"/></li>
+      <li id = "name">Username<input name = "username"/></li>
+      <li id = "pass">Password <input name = "password"/></li>
       <li><button type = "submit">Log In</button></li>
      </ul>
-    </form> 
+    </form>');
+    ?>
 </li><li>
     <a href = "register.html">Register</a></li><li>
     <a href = "enquiry.html">Enquiry</a>
