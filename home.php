@@ -5,7 +5,7 @@
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['typef']))
     {
-      echo("TRY"."ING".$_POST['typef']);
+      //echo("TRY"."ING".$_POST['typef']);
       if($_POST['typef']=='Login'){
         // username and password sent from form 
         
@@ -27,12 +27,23 @@
       }
       else if($_POST['typef']=='Logout'){
         
-        echo('DESTROY');
+        //echo('DESTROY');
         session_unset();
         session_destroy();
+        session_start();
       }
-      else{
-        echo "NOTHING HAPPEN: ".$_POST['typef'];
+      else if($_POST['typef']=="Register"){
+
+        $myusername = mysqli_real_escape_string($db,$_POST['username']);
+        $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
+        $sql = "insert into admin(username,passcode)  values('$myusername','$mypassword')";
+        session_unset();
+        session_destroy();
+        session_start();
+        if(!($result = mysqli_query($db,$sql)) ){
+          $_SESSION['LRE']="Registration failed";
+        }
+          
       }
     }
     else{
@@ -93,7 +104,7 @@
         echo('<ul><li>LOGGED: '.$_SESSION['login_user'].'</li>
         <ul>
           <form action="" method="post">
-            <li><input type="hidden" name="typef"value="Logout">Logout</input></li>
+            <input type="hidden" name="typef" value="Logout" />
             <li><button type="submit">Logout</button></li>
           </ul>
           </form>
@@ -105,13 +116,27 @@
      <ul>
       <li id = "name">Username<input name="username"/></li>
       <li id = "pass">Password <input name="password" type="password"/></li>
-      <li><input type="hidden" name="typef" value="Login"></input></li>
+      <li><input type="hidden" name="typef" value="Login" /></li>
       <li><button type = "submit">Log In</button></li>
      </ul>
     </form>');
     ?>
 </li><li>
-    <a href = "register.html">Register</a></li><li>
+    <a href = "register.html">Register</a>
+    <form action="" method="post">
+      <ul>
+       <?php
+        if(isset($_SESSION['LRE'])){echo '<li>Registration Error</li>';}
+       ?>
+       <li id = "name">Username<input name = "username" type="text"/></li>
+       <li id = "pass">Password <input name = "password" type="password"/></li>
+       <li id = "pho">Phone number<input name = "phone" type="text"/></li>
+       <li id = "email">Email<input name = "email" type="email"/></li>
+       <input type="hidden" name="typef" value="Register" />
+       <li><button type = "submit">Register</button></li>
+      </ul>
+    </form>  
+</li><li>
     <a href = "enquiry.html">Enquiry</a>
   </li>
  </ul>
