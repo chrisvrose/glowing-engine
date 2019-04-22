@@ -20,9 +20,15 @@
         
         // If result matched $myusername and $mypassword, table row must be 1 row
         if($count >= 1) { 
+          session_unset();
+          session_destroy();
+          session_start();
           //$error = "DONE";
           $_SESSION['login_user'] = $myusername;
           //header("location: welcome.php");
+        }
+        else{
+          $_SESSION['LRE']="Failed To login";
         }
       }
       else if($_POST['typef']=='Logout'){
@@ -40,7 +46,7 @@
         session_unset();
         session_destroy();
         session_start();
-        if(!($result == mysqli_query($db,$sql)) ){
+        if(!($result = mysqli_query($db,$sql)) ){
           $_SESSION['LRE']="Registration failed";
         }
           
@@ -100,6 +106,8 @@
  <ul class = "top">
     <li><a href = "">Login</a>
       <?php 
+      if(isset($_SESSION['LRE']))
+      echo('LOGIN ERROR');
       if( isset($_SESSION['login_user']) )
         echo('<ul><li>LOGGED: '.$_SESSION['login_user'].'</li>
         <ul>
