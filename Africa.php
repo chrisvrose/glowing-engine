@@ -57,6 +57,7 @@
     }
   }
 ?>
+
 <html>
 <head>
 <title>Travel</title>
@@ -72,7 +73,7 @@
    <ul>
      <li><a href = "about.html">About</a></li>
    </ul>
- </li><li>
+</li><li>
   <a href = "#">Continents</a>
    <ul>
      <li><a href = "Asia.php">Asia</a></li>
@@ -85,15 +86,15 @@
 </li><li>
   <a href = "#">Hotels </a>
   <ul>
-   <li><a href = "https://www.trivago.in/">Trivago</a></li>
-   <li><a href = "https://www.makemytrip.com/">Make my trip</a></li>
-   <li><a href = "https://www.goibibo.com/">Go Ibibo</a></li>
+   <li><a href = "https://www.trivago.in/" target="_blank">Trivago</a></li>
+   <li><a href = "https://www.makemytrip.com/" target="_blank">Make my trip</a></li>
+   <li><a href = "https://www.goibibo.com/" target="_blank">Go Ibibo</a></li>
   </ul>
 </li><li>
   <a href = "#">Transport</a>
   <ul>
-   <li><a href = "https://www.uber.com/in/en/">Uber</a></li>
-   <li><a href = "https://www.redbus.in/">Red bus</a></li>
+   <li><a href = "https://www.uber.com/in/en/" target="_blank">Uber</a></li>
+   <li><a href = "https://www.redbus.in/" target="_blank">Red bus</a></li>
   </ul>
 </li><li>
   <a href = "testimonial.html">Testimonials</a>
@@ -149,6 +150,9 @@
   </li>
  </ul>
  </div>
+</div>
+<div class="maindiv4">
+
 </div>
 </body>
 </html>
